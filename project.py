@@ -40,7 +40,7 @@ for index, row in tabela.iterrows():
     pagina.insert_text((185, 185), f"{row['Morada']}", fontsize=12, color=(0, 0, 0))
     
     # Escrever o Preço
-    pagina.insert_text((185, 212), f"{row['Preco']} €", fontsize=14, color=(1, 0, 0)) # Vermelho
+    pagina.insert_text((185, 212), f"{row['Preco']} $", fontsize=14, color=(1, 0, 0)) # Vermelho
 
     # --- INSERIR IMAGEM ---
     link = row['Link_Imagem_Casa']
