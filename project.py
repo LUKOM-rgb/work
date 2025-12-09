@@ -50,7 +50,7 @@ for index, row in tabela.iterrows():
         if download_image(link, nome_img_temp):
             # No PyMuPDF, a imagem precisa de uma "Caixa" (Rect)
             # Rect(x_inicio, y_inicio, x_fim, y_fim)
-            rect_imagem = fitz.Rect(0, 300, 555, 500)
+            rect_imagem = fitz.Rect(30, 450, 350, 650)
             
             pagina.insert_image(rect_imagem, filename=nome_img_temp)
             
@@ -78,3 +78,5 @@ for index, row in tabela.iterrows():
             print(f"Ficheiro {caminho_ficheiro} apagado.") 
         except OSError as e:
             print(f"Erro ao apagar {caminho_ficheiro}: {e}")
+    else:
+        print("És cool")
