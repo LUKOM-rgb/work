@@ -3,6 +3,7 @@ import fitz  # PyMuPDF
 import requests
 import os
 
+
 # 1. Carregar a tabela (como já tinhas)
 tabela = pd.read_excel("Book.xlsx")
 
@@ -24,7 +25,7 @@ def download_image(url, filename):
     except:
         return False
 
-# 3. O Ciclo Mágico
+# 3. O Ciclo para criar os ficheiros
 for index, row in tabela.iterrows():
     print(f"A preencher PDF para a casa {row['ID_Casa']}...")
     
@@ -33,7 +34,7 @@ for index, row in tabela.iterrows():
     pagina = doc[0] # Vamos editar a página 1 (índice 0)
     
     # --- INSERIR TEXTO ---
-    # As coordenadas são (X, Y). Podes ter de testar para acertar o sítio.
+    # As coordenadas são (X, Y). 
     
     # Escrever a Morada
     pagina.insert_text((185, 185), f"{row['Morada']}", fontsize=12, color=(0, 0, 0))
@@ -49,7 +50,6 @@ for index, row in tabela.iterrows():
         if download_image(link, nome_img_temp):
             # No PyMuPDF, a imagem precisa de uma "Caixa" (Rect)
             # Rect(x_inicio, y_inicio, x_fim, y_fim)
-            # Exemplo: Começa em x=300, y=100 e vai até x=500, y=250
             rect_imagem = fitz.Rect(0, 300, 555, 500)
             
             pagina.insert_image(rect_imagem, filename=nome_img_temp)
@@ -59,7 +59,22 @@ for index, row in tabela.iterrows():
 
     # 4. Guardar como um NOVO ficheiro
     doc.save(f"{OUTPUT_FOLDER}/Casa_{row['ID_Casa']}.pdf")
-    doc.close() # Importante fechar para libertar memória
-
+    doc.close() 
 
 print("Feito!")
+
+apg = input("Quer apagar os ficheiros gerados? (sim/não): ").strip().lower()
+
+# loop para apagar os ficheiros (isto só serve para os testes burros)
+for index, row in tabela.iterrows():
+
+    
+    caminho_ficheiro = f"{OUTPUT_FOLDER}/Casa_{row['ID_Casa']}.pdf"
+
+   
+    if apg in ['sim', 's', 'yes', 'y']:
+        try:
+            os.remove(caminho_ficheiro)
+            print(f"Ficheiro {caminho_ficheiro} apagado.") 
+        except OSError as e:
+            print(f"Erro ao apagar {caminho_ficheiro}: {e}")
