@@ -50,11 +50,11 @@ for index, row in tabela.iterrows():
         if download_image(link, nome_img_temp):
             # No PyMuPDF, a imagem precisa de uma "Caixa" (Rect)
             # Rect(x_inicio, y_inicio, x_fim, y_fim)
-            rect_imagem = fitz.Rect(30, 450, 350, 650)
+            rect_imagem = fitz.Rect(30, 450, 450, 700)
             
-            pagina.insert_image(rect_imagem, filename=nome_img_temp)
+            pagina.insert_image(rect_imagem, filename=nome_img_temp, keep_proportion=False)
             
-            # Fechar e apagar imagem temporária
+            # Fechar e apagar imagem temporária 
             os.remove(nome_img_temp)
 
     # 4. Guardar como um NOVO ficheiro
