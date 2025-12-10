@@ -48,7 +48,7 @@ for index, row in tabela.iterrows():
         nome_img_temp = f"temp_{row['ID_Casa']}.jpg"
         
         if download_image(link, nome_img_temp):
-            # No PyMuPDF, a imagem precisa de uma "Caixa" (Rect)
+            
             # Rect(x_inicio, y_inicio, x_fim, y_fim)
             rect_imagem = fitz.Rect(30, 450, 450, 700)
             
